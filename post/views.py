@@ -6,6 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
+class AllPostsListView(ListView):
+    model = Post
+    context_object_name = 'all_posts'
+    template_name = 'all_posts.html'
 
 class PostListView(LoginRequiredMixin, ListView):
     model = Post
