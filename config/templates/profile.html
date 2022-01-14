@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{%block content%}
+  <section class="section">
+    <div class="container">
+
+    <article class="media">
+        <div class="media-left">
+        <figure class="image is-128x128">
+            <img class="is-rounded" src="{{ profile.picture.url }}" >
+          </figure>
+        </div>
+
+        <div class="media-content">
+            <div class="content">
+
+                <h1 class="title is-1">@{{ profile.user.username }}</h1>
+                <h2 class="subtitle is-3">{{ profile.first_name }} {{ profile.last_name }}</h2>
+
+                <!-- <div class="media-right">
+                  {% if follow_status == True %}
+                    <a href="#" class="button is-danger">Unfollow</a>
+                  {% else %}
+                    <a href="#" class="button is-success">Follow</a>
+                  {% endif  %}
+                </div> -->
+
+                <!-- <div class="media-right">
+                    <button class="button is-success">Follow</button>
+                </div> -->
+            </div>
+
+        <!-- <nav class="level is-mobile">
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Posts</p>
+                <p class="title">3,456</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Following</p>
+                <p class="title">123</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Followers</p>
+                <p class="title">456K</p>
+              </div>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <p class="heading">Likes</p>
+                <p class="title">789</p>
+              </div>
+            </div>
+          </nav> -->
+          <!-- <p class="title is-5">{{ profile.profile_info}}</p>
+          <button class="button">Edit profile</button> -->
+        </div>
+
+        </article>
+
+
+            </div>
+          </div>
+      
+    </div>
+  </section>
+
+  <div class="container">
+
+    <div class="tabs is-centered">
+        <ul>
+          <li class="is-active">
+            <a><span class="material-icons">
+                dashboard
+                </span>Post</a></li>
+          <!-- <li><a><span class="material-icons">
+            save_alt
+            </span>Saved</a></li> -->
+        </ul>
+      </div>
+
+
+    <div class="columns is-mobile is-multiline is-centered">
+      {%for post in profile.user.posts.all%}
+        <div class="column is-one-quarter">
+
+            <div class="box">
+                    <figure class="image is-256x256">
+                      <a href="{% url 'post_detail' post.pk%}"><img src="{{ post.picture.url }}" alt="Image"></a>
+                    </figure>
+              </div>
+
+        </div>
+      {%endfor%}
+
+        <!-- <div class="column is-one-quarter">
+
+            <div class="box">
+                    <figure class="image is-256x256">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+              </div>
+
+        </div>
+
+        <div class="column is-one-quarter">
+
+            <div class="box">
+                    <figure class="image is-256x256">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+              </div>
+
+        </div>
+
+        <div class="column is-one-quarter">
+
+            <div class="box">
+                    <figure class="image is-256x256">
+                      <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+              </div>
+
+        </div> -->
+        
+    </div>
+
+
+  
+</div>
+
+{%endblock%}
