@@ -5,29 +5,42 @@
     <div class="container">
 
     <article class="media">
-        <div class="media-left">
+      <div class="media-left">
+        {% if profile.picture %}
         <figure class="image is-128x128">
-            <img class="is-rounded" src="{{ profile.picture.url }}" >
-          </figure>
-        </div>
-
+          
+            <img class="is-rounded" src="{{ profile.picture.url }}">
+          {% else %}
+            <img class="is-rounded" src="https://bulma.io/images/placeholders/256x256.png">
+          {% endif %}
+        </figure>
+    </div>
         <div class="media-content">
             <div class="content">
-
+              {% if profile.user.username %}
                 <h1 class="title is-1">@{{ profile.user.username }}</h1>
-                <h2 class="subtitle is-3">{{ profile.first_name }} {{ profile.last_name }}</h2>
+                {% else %}
+                <h1 class="title is-1">@No info yet</h1>
+                {%endif%}
+                {% if profile.first_name %}
+                <h2 class="subtitle is-3">{{ profile.first_name }}</h2>
+                {% else %}
+                <h2 class="subtitle is-3">No info yet</h2>
+                {%endif%}
 
-                <!-- <div class="media-right">
+                {% if user.is_authenticated and user != profile.user %}
+                <div class="media-right">
                   {% if follow_status == True %}
-                    <a href="#" class="button is-danger">Unfollow</a>
+                    <a href="{% url 'follow' profile.user 0 profile.user.id %}" class="button is-danger">Unfollow</a>
                   {% else %}
-                    <a href="#" class="button is-success">Follow</a>
+                    <a href="{% url 'follow' profile.user 1 profile.user.id %}" class="button is-success">Follow</a>
                   {% endif  %}
-                </div> -->
+                  {% else %}
+                  
+                  <a href="{% url 'edit-profile'%}" class="button is-success">Edit profile</a>
+                </div>
+                {% endif  %}
 
-                <!-- <div class="media-right">
-                    <button class="button is-success">Follow</button>
-                </div> -->
             </div>
 
         <!-- <nav class="level is-mobile">

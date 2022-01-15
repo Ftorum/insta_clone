@@ -26,9 +26,9 @@ class Post(models.Model):
             return reverse('post_detail', args=[str(self.id)])
 
 
-class Follow(models.Model):
-    follower = models.ForeignKey(User, models.CASCADE, related_name='follower')
-    following = models.ForeignKey(User, models.CASCADE, related_name='following')
+class Followers(models.Model):
+    user_id = models.ForeignKey(User, models.CASCADE, related_name='user_id')
+    follower_id = models.ForeignKey(User, models.CASCADE, related_name='follower_id')
 
 
 class Comment(models.Model):
@@ -40,6 +40,10 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.posted)
+
+class PostFileContent(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='content_owner')
+	file = models.FileField(upload_to=user_directory_path)
 
 
 class Like(models.Model):

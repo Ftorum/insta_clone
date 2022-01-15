@@ -33,49 +33,34 @@
                 Home
               </a>
 
-              <a class="navbar-item" href="{% url 'all_posts' %}">
+            <a class="navbar-item" href="{% url 'all_posts' %}">
                 <span class="material-icons">explore</span>
               Explore
             </a>
-            <!-- <a class="navbar-item">
-                <span class="material-icons">notifications</span>
-                Notifications
-              </a>
-      
-            <a class="navbar-item">
-                <span class="material-icons">assignment</span>
-              Documentation
-            </a>
-
-            <a class="navbar-item">
-                <span class="material-icons">inbox</span>
-                Inbox
-            </a> -->
+            <a class="navbar-item" href="{% url 'newpost' %}">
+              <span class="material-icons">post_add</span>
+              New Post
+          </a>
+            
 
             <a class="navbar-item" href="{% url 'profile' request.user.pk%}">
                 <span class="material-icons">face</span>
                 Profile
             </a>
+            
       
-            <!-- <div class="navbar-item has-dropdown is-hoverable">
+            <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">
                 Settings
               </a>
       
               <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  Change password
-                </a>
-                <a class="navbar-item">
-                  Contact
-                </a> 
-                <hr class="navbar-divider">
-                <a class="navbar-item">
+                <a class="navbar-item" href="{% url 'logout'%}">
                   Log out
                 </a>
               </div>
             </div>
-          </div> -->
+          </div>
 
         </div>
       </nav>

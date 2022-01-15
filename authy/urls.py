@@ -2,13 +2,12 @@ from django.urls import path
 from authy.views import UserProfile, Signup, PasswordChange, PasswordChangeDone, EditProfile
 
 from django.contrib.auth import views as authViews 
-from .views import ProfileView
+from .views import ProfileView, follow
 
 
 
 urlpatterns = [
-   	
-      path('profile/edit', EditProfile, name='edit-profile'),
+    path('profile/edit', EditProfile, name='edit-profile'),
    	path('signup/', Signup, name='signup'),
    	path('login/', authViews.LoginView.as_view(template_name='login.html'), name='login'),
    	path('logout/', authViews.LogoutView.as_view(), {'next_page' : 'index'}, name='logout'),
@@ -18,7 +17,7 @@ urlpatterns = [
    	path('passwordreset/done', authViews.PasswordResetDoneView.as_view(), name='password_reset_done'),
    	path('passwordreset/<uidb64>/<token>/', authViews.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
    	path('passwordreset/complete/', authViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-	path('profile/<int:pk>',ProfileView.as_view(), name='profile',)
-
+	path('profile/<int:pk>',ProfileView.as_view(), name='profile',),
+	path('<username>/follow/<option>/<int:id>', follow, name='follow'),
 
 ]
