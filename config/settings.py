@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-02i_lc!d!5ihh&w1cq3*q!=&amj+bxk#s%-d3@&9!(--%b9gp#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['31.31.201.206']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'authy',
     'post',
 ]
@@ -121,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'config/static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -133,3 +135,15 @@ LOGIN_URL = '/user/login/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#S3 BUCKETS CONFIG
+AWS_ACCESS_KEY_ID = 'AKIA4HILH4W24DB5SQHD'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'ftorum-some-name'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+

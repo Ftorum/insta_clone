@@ -1,10 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
-from .models import Post, PostFileContent
-from django.views.generic import ListView, DetailView
+from .models import Post, PostFileContent, Like
+from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import NewPostForm
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.models import User
+from django.urls import reverse
 # from django.template import loader
 
 
@@ -27,10 +30,33 @@ class PostListView(LoginRequiredMixin, ListView):
         return posts
 
 
-class PostDetailedView(DetailView):
+class PostDetailedView(TemplateView):
     model = Post
-    context_object_name = 'post'
     template_name = 'post_detail.html'
+
+    def get_context_data(self, pk, **kwargs):
+        context = super(PostDetailedView, self).get_context_data(**kwargs)
+        context['post'] = Post.objects.get(id=pk)
+        context['all_likes'] = Like.objects.filter(post=context['post']).all().count()
+        context['user_like'] = Like.objects.filter(
+            user=self.request.user, post=context['post']).exists()
+        print('all_likes: ',context['all_likes'],' personal_like%:', context['user_like'])
+        return context
+
+
+def likes(request, option, id):
+    post_now = Post.objects.get(id=id)
+    print(post_now)
+    try:
+        if int(option) == 0:
+            Like.objects.get(user=request.user,
+                                  post=post_now).delete()
+        else:
+            new_f = Like(user=request.user, post=post_now)
+            new_f.save()
+        return HttpResponseRedirect(reverse('post_detail', args=[str(id)]))
+    except User.DoesNotExist:
+        return HttpResponseRedirect(reverse('post_detail', args=[str(id)]))
 
 
 @login_required
