@@ -1,7 +1,4 @@
-
-
 {% load static %}
-
 
 <!DOCTYPE html>
 <html>
@@ -9,12 +6,52 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="{%static 'css/bulma.min.css'%}">
+    <!-- <link rel="stylesheet" href="{%static 'css/bulma.min.css'%}"> -->
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
+      <script src="{%static 'js/index.js'%}"></script>
+
+
   </head>
   <body>
+    
+<script>
+      $(document).ready(function(){
+        $(".username_id").change(function () {
+        var username = $(this).val();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
+            }
+        });
+        $.ajax({
+        url: '{% url "validate" %}',
+        method: 'POST',
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.taken) {
+            alert("Username taken");
+          }
+        }
+      });
+    });
+      });
+</script>
+
+<!-- <script>
+$(document).ready(function(){
+  $(".username_id").change(function(){
+    alert("The text has been changed.");
+  });
+});
+</script> -->
+
+
+
 
     <section class="section">
       <div class="container">
@@ -25,9 +62,6 @@
         
     <div class="card">
       <div class="card-content">
-
-
-
 
 
     <form method="post" action="" role="form">

@@ -2,6 +2,7 @@ from urllib import request
 from django.shortcuts import render, redirect, get_object_or_404
 from authy.forms import SignupForm, ChangePasswordForm, EditProfileForm
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -139,3 +140,12 @@ def follow(request, username, option, id):
         return HttpResponseRedirect(reverse('profile', args=[str(id)]))
     except User.DoesNotExist:
         return HttpResponseRedirect(reverse('profile', args=[str(id)]))
+
+
+def validate(request):
+    username = request.POST['username']
+    data = {
+        'taken' : User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
+

@@ -2,7 +2,7 @@ from django.urls import path
 from authy.views import UserProfile, Signup, PasswordChange, PasswordChangeDone, EditProfile
 
 from django.contrib.auth import views as authViews 
-from .views import ProfileView, follow
+from .views import ProfileView, follow, validate_username, validate
 
 
 
@@ -19,5 +19,8 @@ urlpatterns = [
    	path('passwordreset/complete/', authViews.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 	path('profile/<int:pk>',ProfileView.as_view(), name='profile',),
 	path('<username>/follow/<option>/<int:id>', follow, name='follow'),
+	path('ajax/', validate_username, name='validate_username'),
+	path('validate/', validate, name="validate"),
+
 
 ]
